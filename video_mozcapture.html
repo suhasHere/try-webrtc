@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Simple Video Test</title>
+</head>
+<body>
+
+<h1>Simple Video Test</h1>
+
+<div><button id="tehbutton" onClick="start();">Start!</button></div><br/>
+<div id="log"></div>
+
+<div><video id="localvideo"  width="640" height="480" controls ></video></div><br/>
+<div><video id="remotevideo" width="640" height="480" controls ></video></div><br/>
+
+<script type="application/javascript;version=1.8">
+  let button = document.getElementById("tehbutton");
+  let localvideo = document.getElementById("localvideo");
+  let remotevideo = document.getElementById("remotevideo");
+
+  function start() {
+    button.innerHTML = "Stop!";
+    button.onclick = stop;
+
+    //localvideo.src = "trailer.webm";
+    localvideo.src = "test.ogv";
+    localvideo.vol = 0.9;
+    videoStream = localvideo.mozCaptureStreamUntilEnded();
+    localvideo.play();
+    remotevideo.mozSrcObject = videoStream;
+    remotevideo.vol = 0.9;
+    remotevideo.play();
+  }
+
+  function stop() {
+    button.innerHTML = "Start!";
+    button.onclick = start;
+    localvideo.stop();
+    remotevideo.stop();
+  }
+</script>
+
+</html>
